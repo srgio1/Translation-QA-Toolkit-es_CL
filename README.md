@@ -26,8 +26,7 @@ If your team uses a different locale or feedback style, the intended path is to 
 - Polite by design: random delay before every request (configurable), retries with backoff, a local page cache, and a Stop button.
 - Reports are built from **editable rule and wording files** (TOML), so the detected issues and the report text can be adapted to another team's feedback style or language without touching code.
 - Report preview (Markdown or rendered), copy to clipboard, save `.md`, and export PDF (Carta or Oficio, with a font of your choice).
-- Interoperable with the original Python tools: import their CSV pairs, or download runs as CSV files with the same names.
-
+  
 ## Install
 
 **Get the code**
