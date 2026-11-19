@@ -1,0 +1,11 @@
+{
+  "manifest_version": 2,
+  "name": "Translation QA Toolkit",
+  "version": "0.1.0",
+  "description": "Fetch reviewer feedback from translate.wordpress.org and turn it into translator QA reports.",
+  "permissions": ["https://translate.wordpress.org/*", "storage", "unlimitedStorage"],
+  "background": { "scripts": ["background.js"] },
+  "browser_action": { "default_title": "Translation QA Toolkit", "default_icon": "icons/icon.svg" },
+  "icons": { "48": "icons/icon.svg", "96": "icons/icon.svg" },
+  "browser_specific_settings": { "gecko": { "id": "translation-qa-toolkit@local", "strict_min_version": "115.0" } }
+}

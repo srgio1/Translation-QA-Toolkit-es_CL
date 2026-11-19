@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Translation QA Toolkit</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="app.css">
+<style id="printStyle"></style>
+</head>
+<body>
+<div id="appRoot">
+  <header class="top">
+    <h1>Translation QA Toolkit</h1>
+    <span id="session" class="session">Session: checking…</span>
+    <nav class="tabs" role="tablist">
+      <button role="tab" data-tab="fetch" aria-selected="true">Fetch feedback</button>
+      <button role="tab" data-tab="report" aria-selected="false">Report</button>
+      <button role="tab" data-tab="rules" aria-selected="false">Rules &amp; wording</button>
+    </nav>
+  </header>
+
+  <!-- ============================ FETCH ============================ -->
+  <section id="tab-fetch" class="panel">
+    <div class="cols">
+      <div class="card form">
+        <label>Plugin project slug
+          <input id="slug" value="" placeholder="e.g. wpematico" autocomplete="off" spellcheck="false">
+        </label>
+        <label>Subproject
+          <select id="subproject"></select>
+        </label>
+        <label>Locale
+          <input id="locale" value="es-cl" autocomplete="off" spellcheck="false">
+          <small>As written in the translate.wordpress.org URL (es-cl, es-mx, pt-br…)</small>
+        </label>
+        <label class="check"><input type="checkbox" id="force"> Force re-fetch (ignore cache)</label>
+        <details>
+          <summary>Request settings</summary>
+          <div class="grid2">
+            <label>Delay min (s)<input type="number" id="delayMin" step="0.5" min="0"></label>
+            <label>Delay max (s)<input type="number" id="delayMax" step="0.5" min="0"></label>
+            <label>Max retries<input type="number" id="retries" min="1" max="20"></label>
+            <label>Timeout (s)<input type="number" id="timeout" min="5" max="120"></label>
+          </div>
+        </details>
+        <div class="row">
+          <button id="start" class="primary">Start</button>
+          <button id="stop" disabled>Stop</button>
+        </div>
+        <p class="muted" id="urlPreview"></p>
+        <div class="row">
+          <span class="muted" id="cacheInfo"></span>
+          <button id="clearCache" class="link">Clear cache</button>
+        </div>
+      </div>
+
+      <div class="card grow">
+        <div class="progress"><div id="bar"></div></div>
+        <div id="barLabel" class="muted">Idle</div>
+        <pre id="log" aria-live="polite"></pre>
+        <div class="row">
+          <button id="clearLog" class="link">Clear log</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" id="results" hidden>
+      <h2 id="resultsTitle">Results</h2>
+      <div class="scroll"><table id="summaryTable" class="data"></table></div>
+      <div class="row">
+        <button id="toReport" class="primary">Make report from this run</button>
+        <button id="refreshStats">Refresh translator stats only</button>
+        <button id="dlCsv">Download CSVs</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ REPORT ============================ -->
+  <section id="tab-report" class="panel" hidden>
+    <div class="cols report">
+      <div class="card form side">
+        <label>Data source
+          <select id="source"></select>
+        </label>
+        <div class="row">
+          <label class="filebtn">Import CSV files…
+            <input type="file" id="csvFiles" accept=".csv" multiple hidden>
+          </label>
+          <button id="deleteRun" class="link">Delete run</button>
+        </div>
+        <small class="muted">Imports the <code>*_summary_*.csv</code> and <code>*_qa_*.csv</code> pair written by the Python tool.</small>
+
+        <label>Translator
+          <select id="translator"></select>
+        </label>
+        <label>Report language
+          <select id="lang">
+            <option value="auto">Auto (from comments)</option>
+            <option value="en">English</option>
+            <option value="es">Español</option>
+          </select>
+        </label>
+        <label>Contributor name<input id="f_name" placeholder="optional, shown as Name (username)"></label>
+        <label>Reviewer<input id="f_reviewer"></label>
+        <label>Project<input id="f_project"></label>
+        <label>Language pair<input id="f_language" placeholder="empty = automatic"></label>
+        <label>Review status<input id="f_status" list="statuses"></label>
+        <datalist id="statuses"><option>Completed</option><option>Ongoing</option></datalist>
+        <div class="grid2">
+          <label>Strings submitted<input id="f_submitted" inputmode="numeric"></label>
+          <label>Strings reviewed<input id="f_reviewed" inputmode="numeric"></label>
+        </div>
+        <label>Date (YYYY-MM-DD)<input id="f_date" placeholder="YYYY-MM-DD"></label>
+        <button id="generate" class="primary">Generate report</button>
+        <small class="muted">Click again for different wording.</small>
+
+        <div class="sep"></div>
+        <div class="grid2">
+          <label>PDF page size
+            <select id="page">
+              <option value="carta">Carta (216 × 279 mm)</option>
+              <option value="oficio">Oficio (216 × 330 mm)</option>
+            </select>
+          </label>
+          <label>PDF font<input id="font" list="fonts" placeholder="Arial"></label>
+        </div>
+        <datalist id="fonts">
+          <option>Arial</option><option>Times New Roman</option><option>Calibri</option><option>Georgia</option>
+          <option>Verdana</option><option>Segoe UI</option><option>Liberation Sans</option><option>Carlito</option>
+          <option>DejaVu Sans</option><option>Noto Sans</option><option>Open Sans</option><option>Roboto</option>
+        </datalist>
+        <div id="warn" class="warn" aria-live="polite"></div>
+      </div>
+
+      <div class="card grow previewcard">
+        <div class="row bar">
+          <button id="copy">Copy to clipboard</button>
+          <button id="saveMd">Save .md…</button>
+          <button id="exportPdf">Export PDF…</button>
+          <span class="spacer"></span>
+          <label class="check"><input type="radio" name="view" value="md" checked> Markdown</label>
+          <label class="check"><input type="radio" name="view" value="rendered"> Rendered</label>
+        </div>
+        <textarea id="md" spellcheck="false" placeholder="Pick a data source and click “Generate report”."></textarea>
+        <div id="rendered" class="doc" hidden></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ RULES ============================ -->
+  <section id="tab-rules" class="panel" hidden>
+    <div class="card">
+      <p class="muted">What the report <b>detects</b> lives in <code>rules.toml</code>; what it <b>says</b> lives in <code>sentences_en.toml</code> / <code>sentences_es.toml</code>.
+        Changes apply the next time you generate a report.</p>
+      <div class="row">
+        <select id="ruleFile">
+          <option value="rules">rules.toml</option>
+          <option value="sentences_en">sentences_en.toml</option>
+          <option value="sentences_es">sentences_es.toml</option>
+        </select>
+        <button id="ruleSave" class="primary">Save</button>
+        <button id="ruleReset">Reset to default</button>
+        <button id="ruleDownload">Download</button>
+        <span id="ruleMsg" class="muted" aria-live="polite"></span>
+      </div>
+      <textarea id="ruleText" spellcheck="false"></textarea>
+    </div>
+  </section>
+</div>
+
+<div id="printRoot" class="doc"></div>
+<script type="module" src="app.js"></script>
+</body>
+</html>
