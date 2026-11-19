@@ -9,6 +9,16 @@ It is a port of two Python tools (a feedback scraper and a report generator) int
 
 > Not affiliated with WordPress.org or the WordPress Polyglots team.
 
+## Tailored to es_CL
+
+This toolkit was built for the **Spanish (Chile) [es_CL]** locale team, and its defaults reflect that team's feedback style:
+
+- The detection rules (`rules.toml`) match the wording of es_CL reviewer comments (for example "comillas", "mayúscula", "ustedeo") and check es_CL conventions: informal "tú" instead of "usted", sentence-case capitalization, and no guillemets « ».
+- The built-in report wording (`sentences_es.toml` / `sentences_en.toml`) mentions es_CL and its style guide.
+- Fetching itself works for any locale (the locale is a field), but the **reports will only make sense for other locales after you adapt the rules and wording**.
+
+If your team uses a different locale or feedback style, the intended path is to **fork this repository** and edit `rules.toml` and the `sentences_*.toml` files. See [Adapting it to another team or language](#adapting-it-to-another-team-or-language). No code changes are needed for most adaptations.
+
 ## Features
 
 - Uses your **logged-in Firefox session**, so your GlotPress "strings per page" setting applies and fewer requests are needed.
@@ -20,11 +30,16 @@ It is a port of two Python tools (a feedback scraper and a report generator) int
 
 ## Install
 
+**Get the code**
+
+- **As a ZIP (no Git needed):** on the repository's GitHub page click the green **Code** button → **Download ZIP**, then unzip it somewhere you will keep it (Firefox loads the add-on from that folder).
+- **With Git:** `git clone <repository-url>`
+
 **Temporary install (for trying it out)**
 
-1. Download or clone this repository.
+1. Unzip or clone the repository as described above.
 2. In Firefox open `about:debugging#/runtime/this-firefox` and click **Load Temporary Add-on…**
-3. Select `manifest.json`.
+3. Select `manifest.json` inside the unzipped folder (GitHub ZIPs add one extra top-level folder named after the repository).
 4. Click the toolbar button. The toolkit opens in its own tab (a popup would close and interrupt a long fetch).
 
 Temporary add-ons are removed when Firefox restarts. For a permanent install the add-on must be signed: submit the zipped folder as an **unlisted** add-on on [addons.mozilla.org](https://addons.mozilla.org/developers/).
@@ -124,5 +139,4 @@ The report generator, parsers and categorizer were ported function by function f
 - Fetching is sequential and deliberately slow; a plugin with hundreds of flagged strings can take a while.
 
 ## License
-
 MIT. `lib/toml.js` bundles smol-toml, which is MIT-licensed.
