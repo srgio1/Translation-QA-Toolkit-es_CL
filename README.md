@@ -2,7 +2,7 @@
 
 A Firefox extension for locale teams on [translate.wordpress.org](https://translate.wordpress.org). It does two jobs in one place:
 
-1. **Fetch feedback:** collects the "changes requested" strings of a plugin, with the reviewers' comments and reason tags, and counts approved vs. flagged strings per translator.
+1. **Fetch feedback:** collects the "changes requested" strings of a plugin, with the reviewers' comments and reason tags, and counts approved vs. flagged strings per translator. 
 2. **Generate a report:** turns that data into a short, structured Markdown (or PDF) quality-review report for each translator, in English or Spanish.
 
 It is a port of two Python tools (a feedback scraper and a report generator) into a single extension. Nothing is uploaded anywhere: all data stays in your browser.
@@ -140,3 +140,7 @@ The report generator, parsers and categorizer were ported function by function f
 
 ## License
 MIT. `lib/toml.js` bundles smol-toml, which is MIT-licensed.
+
+## Screenshots
+
+<img width="1992" height="1462" alt="Screenshot Translation QA Toolkit with blurred translator name" src="https://github.com/user-attachments/assets/bd2e4c86-2aeb-43b9-8f82-5877e93845d3" />
