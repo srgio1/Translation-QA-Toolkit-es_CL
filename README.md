@@ -1,3 +1,4 @@
+
 # Translation QA Toolkit
 
 A Firefox extension for locale teams on [translate.wordpress.org](https://translate.wordpress.org). It does two jobs in one place:
@@ -142,5 +143,6 @@ MIT. `lib/toml.js` bundles smol-toml, which is MIT-licensed.
 
 ## Screenshots
 
-<img width="2044" height="1754" alt="Screenshot 2026-11-19 at 18-33-11 Translation QA Toolkit" src="https://github.com/user-attachments/assets/c7d996b5-89d1-4889-b7dd-467970d15de1" />
+<img width="1992" height="1462" alt="Screenshot Fetcher - Translation QA Toolkit" src="https://github.com/user-attachments/assets/e057d783-98c6-408c-ae74-c43fc0140e46" />
+<img width="2044" height="1754" alt="Screenshot Report - Translation QA Toolkit" src="https://github.com/user-attachments/assets/c7d996b5-89d1-4889-b7dd-467970d15de1" />
 
