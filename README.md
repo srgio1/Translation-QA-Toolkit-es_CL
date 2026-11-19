@@ -142,5 +142,5 @@ MIT. `lib/toml.js` bundles smol-toml, which is MIT-licensed.
 
 ## Screenshots
 
-<img width="1992" height="1462" alt="Screenshot Translation QA Toolkit with blurred translator name" src="https://github.com/user-attachments/assets/bd2e4c86-2aeb-43b9-8f82-5877e93845d3" /><img width="2044" height="1754" alt="Screenshot 2026-11-19 at 18-33-11 Translation QA Toolkit" src="https://github.com/user-attachments/assets/c7d996b5-89d1-4889-b7dd-467970d15de1" />
+<img width="2044" height="1754" alt="Screenshot 2026-11-19 at 18-33-11 Translation QA Toolkit" src="https://github.com/user-attachments/assets/c7d996b5-89d1-4889-b7dd-467970d15de1" />
 
