@@ -1,7 +1,7 @@
 
-# Translation QA Toolkit
+# Plugins Translations QA Toolkit
 
-A Firefox extension for locale teams on [translate.wordpress.org](https://translate.wordpress.org). It does two jobs in one place:
+A Firefox extension for summarizing the feedback given to plugin translators on [translate.wordpress.org](https://translate.wordpress.org). It does two jobs in one place:
 
 1. **Fetch feedback:** collects the "changes requested" strings of a plugin, with the reviewers' comments and reason tags, and counts approved vs. flagged strings per translator. 
 2. **Generate a report:** turns that data into a short, structured Markdown (or PDF) quality-review report for each translator, in English or Spanish.
